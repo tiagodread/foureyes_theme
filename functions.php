@@ -10,6 +10,7 @@ define ('SITE_URL', get_bloginfo('url'));
 add_action( 'after_setup_theme', 'custom_setup' );
 
 function custom_setup(){
+
 	register_nav_menu( 'menu-header', 'Cabeçalho' );
 
 	add_theme_support( 'post-thumbnails' );
@@ -19,6 +20,7 @@ function custom_setup(){
 	add_filter( 'excerpt_more', 'custom_exerpt_more' );
 
 	add_image_size( 'cover', 353, 326, true );
+    add_image_size( 'header_single', 1344, 380, true );
 
 	add_filter( 'post_thumbnail_html', 'custom_thumbnail_html' );
 
