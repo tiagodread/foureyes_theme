@@ -13,18 +13,32 @@ get_header();
     <div class="inner">
 
         <?php if (have_posts()): ?>
+
             <?php while (have_posts()): ?>
+
             <?php the_post(); ?>
+
                 <header>
                     <div class="image main">
                         <?php if (has_post_thumbnail()): ?>
-                            <?php the_post_thumbnail('header_single'); ?>
+                            <?php the_post_thumbnail('header-single'); ?>
                         <?php endif; ?>
                     </div>
+
+                    <?php $cat = get_the_category(); ?>
+                    <p class="post-category">Categorias:
+                    <?php foreach($cat as $c ): ?>
+                        <?php $catLink = get_category_link($c->cat_ID); ?>
+                        <?php echo '<a href="'. $catLink . '"> ' . $c->name . '</a>'; ?>
+                    <?php endforeach; ?>
+                    </p>
                     <h1><?php the_title();?></h1>
                 </header>
+
                 <p><?php the_content(); ?></p>
+
             <?php endwhile;?>
+
         <?php endif;?>
 
     </div>
