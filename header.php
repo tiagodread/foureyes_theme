@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Phantom by HTML5 UP
-	html5up.net | @n33co
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
 <html>
 <head>
 	<title>
@@ -26,7 +21,7 @@
 			<div class="inner">
 
 				<!-- Logo -->
-				<a href="index.html" class="logo">
+				<a href="<?php echo SITE_URL;?>" class="logo">
 					<span class="symbol"><img src="<?php echo THEME_URL; ?>images/logo.svg" alt="" /></span><span class="title"><?php echo SITE_NAME;?></span>
 				</a>
 

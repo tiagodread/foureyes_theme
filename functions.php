@@ -22,6 +22,8 @@ function custom_setup(){
 
 	add_filter( 'post_thumbnail_html', 'custom_thumbnail_html' );
 
+	add_action( 'init', 'custom_contact' );
+
 }
 
 function custom_excerpt_length(){
@@ -39,7 +41,47 @@ function custom_thumbnail_html($html){
 	return preg_replace(array(
 		'/height="\d*"\s/',
 		'/width="\d*"\s/'
-		),
-		 '',$html);
+	),
+	'',$html);
+}
+
+function custom_contact(){
+	global $erro;
+
+	if(isset($_POST['contact'])){
+		$v = array();
+		$fields = array('name','email','message');
+
+		foreach($fields as $f){
+			$value = (isset($_POST[$f])) ? sanitize_text_field( $_POST[$f] ): false;
+			if(!$value){
+				$erro = "Preencha todos os campos!";
+				break;
+			}
+			$v[$f] = $value;
+		}
+
+		if(!is_email( $v['email'] )){
+			$erro = "E-mail invalido!";
+		}elseif (!$erro){
+			$to = 'tiago.goes2009@gmail.com';
+			$subject = 'Site ' . SITE_NAME . ' - Formulario de contato';
+			$message = sprintf(
+				'Nome: %s' . PHP_EOL .
+				'Email: %s' . PHP_EOL .
+				'Mensagem: %s', 
+				$v['name'],
+				$v['email'],
+				$v['message'] 
+			);
+
+			if(!wp_mail( $to, $subject, $message)){
+				$erro = "Nao foi possivel enviar a mensagem.";
+			}else{
+				wp_die( 'Mensagem enviada com sucesso','Enviado com sucesso' );
+			}
+		}
+
+	}
 }
 
